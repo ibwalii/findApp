@@ -1,3 +1,14 @@
 page-home {
-
+    #map{
+        height: 100%;
+        width: 100%;
+        top: 1px;
+        position: absolute;
+    }
+    #searchbox{
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        width: 100%;
+    }
 }
