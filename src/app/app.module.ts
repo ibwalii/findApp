@@ -11,11 +11,14 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule, AngularFireAuth } from "angularfire2/auth";
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpClient, HttpClientModule } from '../../node_modules/@angular/common/http';
 import { StationsServiceProvider } from '../providers/stations-service/stations-service';
 import { DashboardPage } from '../pages/about/dashboard/dashboard';
+import { FIRE_CONFIG } from './app.firebase.config';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { DashboardPage } from '../pages/about/dashboard/dashboard';
     BrowserModule,
     HttpClientModule,
     SelectSearchableModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(FIRE_CONFIG),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +52,8 @@ import { DashboardPage } from '../pages/about/dashboard/dashboard';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     HttpClient,
-    StationsServiceProvider
+    StationsServiceProvider,
+    AngularFireAuth
   ]
 })
 export class AppModule {}

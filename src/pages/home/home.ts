@@ -22,10 +22,11 @@ export class HomePage {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  setmarker: any = [
-    {"name":"Shell", "lat":9.055035, "lng":7.460785, "content": "mobil maitama", "icon":1},
-    {"name":"Total", "lat":10.531850, "lng":7.429470, "content": "texaco ", "icon":2},
-    {"name":"Mobil", "lat":10.531860, "lng":7.323233, "content": "NNPC Mega", "icon":3}
+  setmarker: any 
+  = [
+    {"name":"Shell", "lat":9.055035, "lng":7.460785, "content": "", "icon":1,  "status": 1},
+    {"name":"Forte Oil", "lat":10.546735, "lng":7.439889, "content": "Ungwan Sarki", "icon":2, "status": 0},
+    {"name":"Total Abakpa", "lat":10.542737, "lng":7.432937, "content": "Near Giwa Hospital", "icon":3, "status": 1}
 ];
 
 
@@ -34,13 +35,15 @@ export class HomePage {
               private platform: Platform,
               private stationsProvider: StationsServiceProvider) {
 
-                this.stations = this.setmarker;
+                this.stations ;
 
                 this.platform.ready().then(
                   () => {
                    this.initMap();
                    this.onGetStations();
                   });
+
+                  
                   
     
   }  
@@ -85,6 +88,7 @@ export class HomePage {
     this.stationsProvider.getStations()
     .then((resp) => {
       this.setmarker = resp;
+      this.stations = this.setmarker;
     }).catch((err)=>{
       console.log(err+" From get observable");
     });    

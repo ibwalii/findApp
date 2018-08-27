@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DashboardPage } from './dashboard/dashboard';
-// import { AngularFireAuth } from "angularfire2/auth";
-// import * as firebase from "firebase";
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'page-about',
@@ -13,30 +12,36 @@ export class AboutPage {
   @ViewChild('uname') uname;
   @ViewChild('upass') upass;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
+              public myAuth : AngularFireAuth 
              ) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignIn');
+    this.myAuth.authState.subscribe( data => {
+      if(data){
+        this.navCtrl.push(DashboardPage);
+      }
+      else{ }
+    });
   }
 
   async signIn(){
+    try{
+      const result = this.myAuth.auth.signInWithEmailAndPassword(this.uname.value, this.upass.value);
+      if(result){
+        this.navCtrl.push(DashboardPage);
+      }
+      else{
+        console.log('Inside Try');
+      }
+    }
+    catch(e){
+      console.log('Error Message');
+      console.log(e);
+    }
     
-    const result = this.uname;
-    console.log(result);
-
-    // try{
-    //   const result = this.myAuth.auth.signInWithEmailAndPassword(this.uname, this.upass);
-    //   console.log(result);
-    // }
-    // catch(e){
-    //   console.log(e)
-    // }
-    
-  
-    console.log('sign');
-    this.navCtrl.push(DashboardPage);
   }
 }

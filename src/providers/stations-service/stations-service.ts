@@ -27,9 +27,8 @@ export class StationsServiceProvider {
           resolve(stations);
       }, err => {
           console.log(err);
-      });
-
-      
-    });
+      }); 
+    });  
   }
+  
 }

@@ -1,7 +1,9 @@
 {
     "stations": [
-        {"name":"Shell", "lat":9.055035, "lng":7.460785, "content": "", "icon":1},
-        {"name":"Total", "lat":10.531850, "lng":7.429470, "content": "", "icon":2},
-        {"name":"Mobil", "lat":10.531850, "lng":7.429470, "content": "", "icon":3}
+        {"id": 1, "name":"Shell", "lat":9.055035, "lng":7.460785, "content": "", "icon":1,  "status": 1},
+        {"id": 2, "name":"Forte Oil", "lat":10.546735, "lng":7.439889, "content": "Ungwan Sarki", "icon":2, "status": 0},
+        {"id": 3, "name":"Mobil Ali Akilu", "lat":10.543718, "lng":7.435951, "content": "By Lugard Roundabout", "icon":3, "status": 1},
+        {"id": 4, "name":"Total Abakpa", "lat":10.542737, "lng":7.432937, "content": "Near Giwa Hospital", "icon":3, "status": 1}
+         
     ]
 }
