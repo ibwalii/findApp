@@ -24,10 +24,12 @@ export class StationsServiceProvider {
       })
       .subscribe(
         (stations: Station[]) => {
-          return stations;
+          resolve(stations);
       }, err => {
           console.log(err);
       });
+
+      
     });
   }
 }

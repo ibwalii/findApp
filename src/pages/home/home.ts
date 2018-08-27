@@ -3,6 +3,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { Geolocation } from '../../../node_modules/@ionic-native/geolocation';
 import { StationsServiceProvider } from '../../providers/stations-service/stations-service';
 import { Station } from '../../app/station.interface';
+import { SelectSearchableComponent } from 'ionic-select-searchable';
 
 declare var google;
 
@@ -10,18 +11,21 @@ declare var google;
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
-  
+  stations: Station[];
+  station: Station;
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   myLocation;
+  dest: string;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
   setmarker: any = [
     {"name":"Shell", "lat":9.055035, "lng":7.460785, "content": "mobil maitama", "icon":1},
     {"name":"Total", "lat":10.531850, "lng":7.429470, "content": "texaco ", "icon":2},
-    {"name":"Mobil", "lat":10.531850, "lng":7.429470, "content": "NNPC Mega", "icon":3}
+    {"name":"Mobil", "lat":10.531860, "lng":7.323233, "content": "NNPC Mega", "icon":3}
 ];
 
 
@@ -29,6 +33,8 @@ export class HomePage {
               private geolocation:Geolocation,
               private platform: Platform,
               private stationsProvider: StationsServiceProvider) {
+
+                this.stations = this.setmarker;
 
                 this.platform.ready().then(
                   () => {
@@ -39,7 +45,15 @@ export class HomePage {
     
   }  
 
-  
+   stationChange(event: {
+        component: SelectSearchableComponent,
+        value: any 
+    }) {
+        let lat = event.value.lat.toString();
+        let lng = event.value.lng.toString();
+        this.dest = lat+", "+lng;
+    }
+    
   initMap() {
     this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true })
     .then((resp) => {
@@ -70,11 +84,11 @@ export class HomePage {
   onGetStations(){
     this.stationsProvider.getStations()
     .then((resp) => {
-      this.setmarker.push(resp);
+      this.setmarker = resp;
     }).catch((err)=>{
-      console.log(err)+" From get observable";
-    });
-    
+      console.log(err+" From get observable");
+    });    
+    //console.log(res);
   }
 
   onAddMarkers(markers){
@@ -93,16 +107,18 @@ export class HomePage {
   
   calcRoute(){
 
-    let destination = new google.maps.LatLng(9.055035, 7.460785);
+    //new google.maps.LatLng(9.055035, 7.460785);
     this.directionsService.route({
       origin: this.myLocation,
-      destination: '9.055035, 7.460785',
+      destination: this.dest,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
         this.directionsDisplay.setDirections(response);
+        console.log(this.dest);
       } else {
         window.alert('Directions request failed due to ' + status);
+        console.log(this.dest);
       }
     });
   }

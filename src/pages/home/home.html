@@ -8,11 +8,21 @@
   <div id="searchbox">
   <ion-list>
     <ion-item>
-      <ion-label floating> Stations</ion-label>
-      <ion-input type="text" ([ngModel])="destination"></ion-input>
+        <ion-label>Stations</ion-label>
+        <select-searchable
+            item-content
+            [(ngModel)]="Stations"
+            [items]="stations"
+            itemValueField="lat"
+            itemTextField="name"
+            [canSearch]="true"
+            (onChange)="stationChange($event)">
+        </select-searchable>
     </ion-item>
   </ion-list>
   <button ion-button full (click) = "calcRoute()"> Get Direction</button>
+  
   </div>
+  
   <div #map id="map" ></div>
 </ion-content>

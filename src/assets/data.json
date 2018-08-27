@@ -1,6 +1,6 @@
 {
     "stations": [
-        {"name":"Shell", "lat":10.531850, "lng":7.429470, "content": "", "icon":1},
+        {"name":"Shell", "lat":9.055035, "lng":7.460785, "content": "", "icon":1},
         {"name":"Total", "lat":10.531850, "lng":7.429470, "content": "", "icon":2},
         {"name":"Mobil", "lat":10.531850, "lng":7.429470, "content": "", "icon":3}
     ]
